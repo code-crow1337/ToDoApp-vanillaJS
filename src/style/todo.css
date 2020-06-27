@@ -1,3 +1,9 @@
 * {
   box-sizing: border-box;
 }
+.todo__list__item--unchecked {
+  background-color: rgba(132, 226, 132, 0.589);
+}
+.todo__list__item--checked {
+  background-color: rgb(103, 103, 212);
+}

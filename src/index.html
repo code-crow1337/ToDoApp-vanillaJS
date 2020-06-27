@@ -11,6 +11,28 @@
 
 <body>
   <!-- Add your markup here -->
+ <section class="todo">
+   <h1 class="todo__headeer">Your List!</h1>
+   <form action="" class="todo__form">
+     <label for="todo-item" class="form__label">Add an item to your todoList</label>
+     <input type="text" class="form__textfield" id="todo__item">
+     <button class="form__btn--submit" id="cta--submit" type="submit">Add</button>
+   </form>
+   <article>
+     <h2>Ongoing</h2>
+     <ul id="todo__list--notDone" class="todo__list--notDone">
+       <li id="item-1" class="todo__list__item--unchecked">Baka kakor</li>
+       <li id="item-2" class="todo__list__item--unchecked">Sova</li>
+      </ul>
+   </article>
+   <article>
+     <h2>Done</h2>
+     <ul id="todo__list--done" class="todo__list--done">
+       <li id="item-1" class="todo__list__item--checked">Vila</li>
+       <li id="item-2" class="todo__list__item--checked">Handla</li>
+      </ul>
+   </article>
+ </section>
 </body>
 
 </html>
