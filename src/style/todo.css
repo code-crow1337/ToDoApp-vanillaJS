@@ -136,9 +136,11 @@ button:active{
   background-color:#ed42647c;
 }
 .todo__list--notDone{
+  position: relative;
   background-color:#ed426460;
 }
 .todo__list--notDone div:hover{
+
   background-color:#a1284060;
 }
 .todo__list--done{
@@ -152,6 +154,7 @@ button:active{
 }
 .todo__list--notDone div:active , .todo__list--done div:active{
   transform: translateY(4px);
+  transition: 3s;
 }
 /*ViewPort 600*/
 @media only screen and (min-width: 600px) {
