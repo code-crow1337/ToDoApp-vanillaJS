@@ -1,9 +1,117 @@
+/*  BASE */
 * {
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
-.todo__list__item--unchecked {
-  background-color: rgba(132, 226, 132, 0.589);
+body {
+  margin: 1rem 0;
+  height: 100vh;
+  background: rgb(237,66,100);
+  background: linear-gradient(180deg, rgba(237,66,100,1) 0%, rgba(255,237,176,1) 62%, rgba(255,255,255,1) 80%);
 }
-.todo__list__item--checked {
-  background-color: rgb(103, 103, 212);
+ul, li, h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+  font-weight: 600;
+}
+h1, h2 {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+}
+button {
+  font-weight: 500;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+}
+
+/*LAYOUT*/
+.todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.todo__headear{
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.todo__form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.todo__form label{
+  font-size: 1.5rem;
+  color: white;
+ }
+.todo__form input{
+margin: 0.5rem 0rem;
+ text-align: center;
+ min-width: 20rem;
+ min-height: 2.5rem;
+ font-size: 1rem;
+ color: rgb(143, 140, 140);
+}
+.todo__form button{
+  background-color: #079475;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  color: white;
+}
+.todo__list {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/*MODULES*/
+.todo__list div {
+  align-self: center;
+  min-height: 8vh;
+  padding: 0.5rem 2rem;
+  border-bottom: 2px dotted white;
+}
+.todo__list h2 {
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+.todo__list li{
+  text-align: center;
+  line-height: 2rem;
+  color: white;
+}
+
+.todo__list__item--checked{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo__list__btn{
+  font-weight: 500;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+  background-color: #ED4264;
+}
+/*STATE*/
+.todo__list---ongoing{
+  background-color:#ed42647c;
+}
+.todo__list--notDone{
+  background-color:#ed426460;
+}
+.todo__list---done{
+  background-color:#0794757c;
+ }
+.todo__list__item--checked{
+  background-color:#07947565;
 }
