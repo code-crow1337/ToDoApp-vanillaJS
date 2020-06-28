@@ -1,5 +1,4 @@
 /* Todo app javascript */
-// TODO make whole area clickable dosent works
 console.log('🚀');
 const ctaBtn = document.querySelector('#cta--submit');
 const listArr = document.querySelector('.todo');
@@ -56,6 +55,11 @@ const addClasses = (parentNodde, createItemsFn) => {
     createItemsFn(ongoing).forEach((li) => {
       const node = li;
       node.className += '--unchecked';
+      const btn = document.createElement('BUTTON');
+      const btnText = document.createTextNode('✓ Done');
+      btn.className += 'todo__list__btn--done';
+      btn.appendChild(btnText);
+      node.appendChild(btn);
       return parentNodde.appendChild(li);
     });
   } else {
@@ -63,9 +67,9 @@ const addClasses = (parentNodde, createItemsFn) => {
       const node = li;
       node.className += '--checked';
       const btn = document.createElement('BUTTON');
-      const btnText = document.createTextNode('Delete');
+      const btnText = document.createTextNode('✖ Delete');
       btn.appendChild(btnText);
-      btn.className += 'todo__list__btn';
+      btn.className += 'todo__list__btn--remove';
       node.appendChild(btn);
       return parentNodde.appendChild(li);
     });
@@ -139,8 +143,10 @@ listArr.addEventListener('click', (e) => {
     changeState(e.target.querySelector('li').id);
   } else if (e.target.tagName === 'LI') {
     changeState(e.target.id);
-  } else if (e.target.className === 'todo__list__btn') {
+  } else if (e.target.className === 'todo__list__btn--remove') {
     removeItemFromList(e.target.previousSibling.id);
+  } else if (e.target.className === 'todo__list__btn--done') {
+    changeState(e.target.previousSibling.id);
   }
 });
 // Clear textfield when interacted

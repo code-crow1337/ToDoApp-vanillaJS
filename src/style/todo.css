@@ -113,13 +113,13 @@ margin: 0.5rem 0rem;
   color: white;
 }
 
-.todo__list__item--checked{
+.todo__list__item--checked,.todo__list__item--unchecked {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.todo__list__btn{
+.todo__list__btn--remove{
   font-weight: 400;
   border: none;
   border-radius: 5rem;
@@ -127,6 +127,15 @@ margin: 0.5rem 0rem;
   color: white;
   height: 32px;
   background-color: #ED4264;
+}
+.todo__list__btn--done{
+  font-weight: 400;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+  color: white;
+  height: 32px;
+  background-color: #2fb84c;
 }
 /*STATE*/
 button:active{
@@ -149,7 +158,11 @@ button:active{
 .todo__list--done div{
   background-color:#07947565;
 }
-.todo__list--done div:hover{
+.todo__list__btn--remove:hover{
+  background-color: #ff0033;
+  box-shadow: 1px 2px 3px rgba(38, 39, 39, 0.493);
+}
+.todo__list--done div:hover, .todo__list__btn--done:hover{
   background-color:#09554565;
 }
 .todo__list--notDone div:active , .todo__list--done div:active{
@@ -179,25 +192,22 @@ button:active{
     font-size: 2rem;
     margin: 0.5rem 1rem;
   }
-  .footer {
+  .footer ,.todo__list h2 {
     font-size: 1.3rem;
   }
   
   /*MODULES*/
-
-  .todo__list h2 {
-    padding: 1.3rem;
-  }
   .todo__list li{
     line-height: 4rem;
     font-size: 1.3rem;
   }
   
-  .todo__list__btn{
+  .todo__list__btn--remove, .todo__list__btn--done{
     min-width: 8rem;
     font-size: 1.2rem;
     height: 40px;
 }
+
 }
 /*DESKTOP 1150*/
 @media only screen and (min-width: 1150px) {
