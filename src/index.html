@@ -5,12 +5,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>&lt;/salt&gt; :: ToDo</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="./style/todo.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+    integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
   <script defer src="./js/todo.js"></script>
 </head>
 
 <body>
   <!-- Add your markup here -->
+  <section class="todo">
+    <h1 class="todo__headear">Your todo-list! 💻</h1>
+    <form action="" class="todo__form">
+      <label for="todo-item" class="form__label">Add an item to your list</label>
+      <input type="text" class="form__textfield" id="todo__item" value="Buy Beer for salt lecture 🍺">
+      <button class="form__btn--submit" id="cta--submit" type="submit">Add</button>
+    </form>
+    <article class="todo__list">
+      <h2 class="todo__list--ongoing">Ongoing ☕️</h2>
+      <ul id="todo__list--notDone" class="todo__list--notDone">
+
+      </ul>
+    </article>
+    <article class="todo__list">
+      <h2 class="todo__list--done">Done ✔</h2>
+      <ul id="todo__list--done" class="todo__list--done">
+
+      </ul>
+    </article>
+  </section>
+  <footer class="footer"><span class="footer__info">
+      &#169 &lt;/Salt&gt; Applied Technology Bootcamp Weekend Test 7.
+      Code and Design by Joséphine Eén
+    </span>
+    <div class="footer__links">
+      <a target="_blank" href="https://github.com/code-crow1337">
+        <i class="fab fa-github">
+        </i>
+      </a>
+      <a target="_blank" href="https://www.linkedin.com/in/josephine-e%C3%A9n-45b00b164/" class="footer__links">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </div>
+  </footer>
 </body>
 
 </html>

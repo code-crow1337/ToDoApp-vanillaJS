@@ -1,3 +1,222 @@
+/*  BASE */
 * {
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+html{
+  scroll-behavior: smooth;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1rem 0;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(237,66,100,1) 0%, rgba(255,237,176,1) 62%, rgba(255,255,255,1) 80%);
+  background-repeat: no-repeat;
+}
+ul, li, h1, h2,footer {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+  font-weight: 600;
+}
+h1, h2 {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+}
+button {
+  font-weight: 500;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+  display: inline-block;
+}
+a {
+  text-decoration: none;
+  color: #ED4264;
+}
+
+
+/*LAYOUT*/
+.todo {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.todo__headear{
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.todo__form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.todo__form label{
+  font-size: 1.1rem;
+  color: white;
+ }
+.todo__form input{
+margin: 0.5rem 0rem;
+ text-align: center;
+ min-width: 18rem;
+ min-height: 2.5rem;
+ font-size: 1rem;
+ color: rgb(143, 140, 140);
+}
+.todo__form button{
+  background-color: #079475;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  color: white;
+}
+.todo__list {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.footer {
+  align-self: center;
+  text-align: center;
+  width: 80vw;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+.footer__links i {
+  font-size: 2rem;
+  margin: 0.5rem 1rem;
+}
+
+/*MODULES*/
+.todo__list div {
+  align-self: center;
+  min-height: 8vh;
+  padding: 0.5rem 2rem;
+  border-bottom: 2px dotted white;
+}
+.todo__list h2 {
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+.todo__list li{
+  text-align: left;
+  line-height: 3rem;
+  color: white;
+}
+
+.todo__list__item--checked,.todo__list__item--unchecked {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo__list__btn--remove{
+  font-weight: 400;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+  color: white;
+  height: 32px;
+  background-color: #ED4264;
+}
+.todo__list__btn--done{
+  font-weight: 400;
+  border: none;
+  border-radius: 5rem;
+  min-width: 7rem;
+  color: white;
+  height: 32px;
+  background-color: #2fb84c;
+}
+/*STATE*/
+button:active{
+  transform: translateY(4px);
+}
+.todo__form button:hover {
+  background-color: #1d6d5c;
+}
+.todo__list--ongoing{
+  background-color:#ed42647c;
+}
+.todo__list--notDone{
+  position: relative;
+  background-color:#ed426460;
+}
+.todo__list--notDone div:hover{
+  background-color:#a1284060;
+}
+.todo__list--done{
+  background-color:#0794757c;
+}
+.todo__list--done div{
+  background-color:#07947565;
+}
+.todo__list__btn--remove:hover{
+  background-color: #ff0033;
+}
+.todo__list--done div:hover{
+  background-color:#09554565;
+}
+.todo__list__btn--done:hover {
+  background-color: #206930;
+}
+.todo__list--notDone div:active , .todo__list--done div:active{
+  transform: translateY(4px);
+  transition: 3s;
+}
+/*ViewPort 600*/
+@media only screen and (min-width: 600px) {
+  body{
+    align-items: center;
+  }
+  .todo {
+    min-width: 540px;
+    max-width: 90vw;
+  }
+  .todo__headear{
+    font-size: 2.5rem;   
+  }
+  .todo__form label{
+    font-size: 1.5rem;
+   }
+  .todo__form input{
+   min-width: 24rem;
+   font-size: 1.2rem;
+  }
+  .footer__links i {
+    font-size: 2rem;
+    margin: 0.5rem 1rem;
+  }
+  .footer ,.todo__list h2 {
+    font-size: 1.3rem;
+  }
+  
+  /*MODULES*/
+  .todo__list li{
+    line-height: 4rem;
+    font-size: 1.3rem;
+  }
+  
+  .todo__list__btn--remove, .todo__list__btn--done{
+    min-width: 8rem;
+    font-size: 1.2rem;
+    height: 40px;
+}
+
+}
+/*DESKTOP 1150*/
+@media only screen and (min-width: 1150px) {
+  .todo {
+    min-width: 920px;
+    max-width: 90vw;
+  }  
 }
