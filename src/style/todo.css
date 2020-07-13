@@ -141,6 +141,9 @@ margin: 0.5rem 0rem;
 button:active{
   transform: translateY(4px);
 }
+.todo__form button:hover {
+  background-color: #1d6d5c;
+}
 .todo__list--ongoing{
   background-color:#ed42647c;
 }
@@ -149,7 +152,6 @@ button:active{
   background-color:#ed426460;
 }
 .todo__list--notDone div:hover{
-
   background-color:#a1284060;
 }
 .todo__list--done{
@@ -160,10 +162,12 @@ button:active{
 }
 .todo__list__btn--remove:hover{
   background-color: #ff0033;
-  box-shadow: 1px 2px 3px rgba(38, 39, 39, 0.493);
 }
-.todo__list--done div:hover, .todo__list__btn--done:hover{
+.todo__list--done div:hover{
   background-color:#09554565;
+}
+.todo__list__btn--done:hover {
+  background-color: #206930;
 }
 .todo__list--notDone div:active , .todo__list--done div:active{
   transform: translateY(4px);

@@ -5,10 +5,8 @@ const listArr = document.querySelector('.todo');
 const textFieldNode = document.querySelector('.form__textfield');
 let state = {
   uniqId: 1,
-  ongoing: [],
-  done: [],
+  items: [],
 };
-
 // STATE LOGIC
 const getFromLocalStorage = () => JSON.parse(window.localStorage.getItem('todoState'));
 
@@ -19,12 +17,15 @@ const saveToLocalStorage = () => {
   window.localStorage.setItem('todoState', JSON.stringify(state));
 };
 // CRUD ON NODE'S
-const moveStateBetweenList = (list, itemIndex) => {
-  const stateList = list;
-  state[stateList][itemIndex].itemDone = !state[stateList][itemIndex].itemDone;
-  const removedObj = state[stateList].splice(itemIndex, 1)[0];
-  if (stateList === 'ongoing') return state.done.push(removedObj);
-  return state.ongoing.push(removedObj);
+const changeDoneState = (itemID) => {
+  const updatedList = state.items.map((item) => {
+    const temp = item;
+    if (item.id === itemID) {
+      temp.done = !temp.done;
+    }
+    return temp;
+  });
+  state.items = updatedList;
 };
 
 const clearChildNodes = (parentnode) => {
@@ -43,37 +44,37 @@ const createListItems = (nodes) => nodes.map((item) => {
   const divnode = document.createElement('DIV');
   divnode.className += 'todo__list__item';
   const node = document.createElement('LI');
+  let btn = '';
+  let btnText = '';
   node.id = item.id;
   node.appendChild(document.createTextNode(item.fieldValue));
+  if (!item.done) {
+    node.className += 'todo__list__item--unchecked';
+    btnText = document.createTextNode('✓ Done');
+    btn = document.createElement('BUTTON');
+    btn.appendChild(btnText);
+    btn.className += 'todo__list__btn--done';
+    node.appendChild(btn);
+  } else {
+    node.className += 'todo__list__item--checked';
+    btn = document.createElement('BUTTON');
+    btnText = document.createTextNode('✖ Delete');
+    btn.appendChild(btnText);
+    btn.className += 'todo__list__btn--remove';
+    node.appendChild(btn);
+  }
   divnode.appendChild(node);
   return divnode;
 });
-const addClasses = (parentNodde, createItemsFn) => {
-  const { ongoing, done } = state;
-  if (ongoing.length === 0 && done.length === 0) return '';
-  if (/\bnotDone\b$/gi.test(parentNodde.id)) {
-    createItemsFn(ongoing).forEach((li) => {
-      const node = li;
-      node.className += '--unchecked';
-      const btn = document.createElement('BUTTON');
-      const btnText = document.createTextNode('✓ Done');
-      btn.className += 'todo__list__btn--done';
-      btn.appendChild(btnText);
-      node.appendChild(btn);
-      return parentNodde.appendChild(li);
-    });
-  } else {
-    createItemsFn(done).forEach((li) => {
-      const node = li;
-      node.className += '--checked';
-      const btn = document.createElement('BUTTON');
-      const btnText = document.createTextNode('✖ Delete');
-      btn.appendChild(btnText);
-      btn.className += 'todo__list__btn--remove';
-      node.appendChild(btn);
-      return parentNodde.appendChild(li);
-    });
-  }
+const addClasses = (createItemsFn) => {
+  const ongoingList = document.querySelector('#todo__list--notDone');
+  const doneList = document.querySelector('#todo__list--done');
+  if (state.items.length === 0) return '';
+  createItemsFn(state.items.filter((item) => item.done))
+    .forEach((li) => doneList.appendChild(li));
+  createItemsFn(state.items.filter((item) => !item.done))
+    .forEach((li) => ongoingList.appendChild(li));
+
   return '';
 };
 
@@ -81,26 +82,19 @@ const renderState = () => {
   const ongoingList = document.querySelector('#todo__list--notDone');
   const doneList = document.querySelector('#todo__list--done');
   clearLists(doneList, ongoingList);
-  addClasses(ongoingList, createListItems);
-  addClasses(doneList, createListItems);
+  addClasses(createListItems);
 };
-const findItemIndex = (id, list) => {
-  const itemID = parseInt(id, 10);
-  return state[list].findIndex((listItem) => listItem.id === itemID);
-};
+
 const removeItemFromList = (id) => {
   const itemID = parseInt(id, 10);
-  const indexItem = findItemIndex(itemID, 'done');
-  if (indexItem >= 0 && state.done[indexItem].itemDone) {
-    state.done = state.done.filter((item) => item.id !== itemID);
-  }
+  state.items = state.items.filter((item) => item.id !== itemID);
   renderState();
   return saveToLocalStorage();
 };
 
 const addState = (key, value) => {
   state.uniqId += 1;
-  state.ongoing.push(
+  state.items.push(
     {
       [key]: value,
       done: false,
@@ -113,40 +107,38 @@ const addState = (key, value) => {
 
 const changeState = (id) => {
   const itemID = parseInt(id, 10);
-  let indexListitem = findItemIndex(itemID, 'ongoing');
-  if (indexListitem >= 0) {
-    moveStateBetweenList('ongoing', indexListitem);
-  } else {
-    indexListitem = findItemIndex(itemID, 'done');
-    moveStateBetweenList('done', indexListitem);
-  }
+  changeDoneState(itemID);
   renderState();
   return saveToLocalStorage();
 };
 
-const checkInput = (input) => !!(input && typeof input === 'string');
+const checkInput = (input) => {
+  if (input === 'Come on! You can\'t have empty task') {
+    return false;
+  }
+  return !!(input && typeof input === 'string');
+};
 
 // FIELD ACTION
 ctaBtn.addEventListener('click', (e) => {
   // Stop default behaviot aka submit and realoading th page
   e.preventDefault();
   const textfieldValue = document.querySelector('#todo__item');
-  if (!checkInput(textfieldValue.value)) return '';
-  addState('fieldValue', textfieldValue.value);
-  textfieldValue.value = '';
+  if (checkInput(textfieldValue.value)) {
+    addState('fieldValue', textfieldValue.value);
+    textfieldValue.value = '';
+    return '';
+  }
+  textfieldValue.value = 'Come on! You can\'t have empty task';
   return '';
 });
 
 // Event listener  on parent, using event bubbling.
 listArr.addEventListener('click', (e) => {
-  if (e.target.tagName === 'DIV') {
-    changeState(e.target.querySelector('li').id);
-  } else if (e.target.tagName === 'LI') {
-    changeState(e.target.id);
-  } else if (e.target.className === 'todo__list__btn--remove') {
-    removeItemFromList(e.target.previousSibling.id);
-  } else if (e.target.className === 'todo__list__btn--done') {
-    changeState(e.target.previousSibling.id);
+  if (e.target.parentElement.className === 'todo__list__item--checked') {
+    removeItemFromList(e.target.parentElement.id);
+  } else if (e.target.parentElement.tagName === 'LI') {
+    changeState(e.target.parentElement.id);
   }
 });
 // Clear textfield when interacted
@@ -160,8 +152,7 @@ const init = () => {
   } else {
     setState({
       uniqId: 0,
-      ongoing: [],
-      done: [],
+      items: [],
     });
   }
   renderState();
